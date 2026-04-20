@@ -1,0 +1,223 @@
+\documentclass[12pt, a4paper, oneside]{book}
+\usepackage{amsmath}    % 基础数学公式
+\usepackage{amsfonts}   % 提供 \mathbb 字体
+\usepackage{amssymb}    % 更多数学符号
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+\usepackage[most]{tcolorbox}
+% 示例：把编号改成 a. b. c. d. 格式
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+% ！！！必须在文档开头加
+\usepackage{graphicx}   % 插入图片
+\usepackage{subcaption} % 子图排版（核心！没有这个就会排版错乱）
+\usepackage{subfigure}
+% --- 缩进设置 ---
+\usepackage{indentfirst} % 确保每章节的第一段也有缩进
+\setlength{\parindent}{2em} % 设置首行缩进为两个字符单位
+% --- 页眉页脚设置 ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % 清除所有默认设置
+
+% 设置页眉内容
+\fancyhead[C]{\husong\fontsize{10.5pt}{12pt}\selectfont 武汉大学本科毕业论文（设计）} % 居中文字，五号字
+
+% 设置页眉横线高度
+\renewcommand{\headrulewidth}{0.75pt} % 设置页眉横线粗细
+
+% 设置页脚内容（页码居中）
+\fancyfoot[C]{\fontsize{10.5pt}{12pt}\selectfont \thepage} 
+
+% 修正页眉高度警告
+\setlength{\headheight}{15pt}
+
+% --- 针对章起始页面的特殊处理 ---
+% 在 LaTeX 中，chapter 起始页默认使用 plain 格式，需重定义以保持页眉一致
+\fancypagestyle{plain}{
+        \fancyhf{}
+        \fancyhead[C]{\husong\fontsize{10.5pt}{12pt}\selectfont 武汉大学本科毕业论文（设计）}
+        \fancyfoot[C]{\fontsize{10.5pt}{12pt}\selectfont \thepage}
+        \renewcommand{\headrulewidth}{0.75pt}
+}
+
+% --- 宏包加载 ---
+\usepackage[UTF8, scheme=plain]{ctex} % 中文支持
+\usepackage{geometry} % 页边距
+\usepackage{titlesec} % 标题格式
+\usepackage{titletoc} % 目录格式
+\usepackage{fancyhdr} % 页眉页脚
+\usepackage{setspace} % 行间距
+\usepackage{graphicx} % 插图
+\usepackage{booktabs} % 表格
+\usepackage{caption}  % 题注
+\usepackage{amsmath}  % 数学公式
+\usepackage{hyperref} % 超链接
+
+% --- 页面设置 ---
+\geometry{top=2.54cm, bottom=2.54cm, left=3.18cm, right=3.18cm}
+\onehalfspacing % 1.5倍行距 [cite: 1, 2]
+
+% --- 字体定义 ---
+\setmainfont{Times New Roman}
+\newcommand{\huhei}{\heiti} % 黑体
+\newcommand{\husong}{\songti} % 宋体
+
+% --- 标题格式设置  ---
+% 章标题：黑体小二，居中
+\titleformat{\chapter}[block]{\centering\huhei\fontsize{18pt}{27pt}\selectfont}{\arabic{chapter}}{1em}{}
+% 节标题：黑体四号
+\titleformat{\section}{\huhei\fontsize{14pt}{21pt}\selectfont}{\arabic{chapter}.\arabic{section}}{1em}{}
+% 条标题：黑体小四号
+\titleformat{\subsection}{\huhei\fontsize{12pt}{18pt}\selectfont}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}{1em}{}
+% --- 调整标题上下方的空白 ---
+% {命令}{左边距}{上边距}{下边距}
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt} 
+% 将上边距设置为负值（如 -20pt）可以有效抵消页面顶部的默认留白
+
+% --- 目录格式设置  ---
+\titlecontents{chapter}[0pt]{\husong\fontsize{12pt}{18pt}\selectfont}
+{\huhei 第\thecontentslabel 章\quad}{}
+{\titlerule*[0.5pc]{.}\contentspage}
+% --- 目录标题中文化与格式设置 ---
+\renewcommand{\contentsname}{\huhei\fontsize{18pt}{27pt}\selectfont 目\quad 录}
+
+% 如果您使用的是 standard book 类，可能还需要确保页眉不显示英文
+\usepackage[titles]{tocloft}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftbeforetoctitle}{\hfill}
+
+% --- 图表标题设置  ---
+\DeclareCaptionFont{wuhao}{\husong\bfseries\fontsize{10.5pt}{15.75pt}\selectfont}
+\captionsetup{labelsep=space, font=wuhao}
+\captionsetup[figure]{name=图, aboveskip=10pt, belowskip=5pt}
+\captionsetup[table]{name=表, aboveskip=5pt, belowskip=10pt}
+
+\begin{document}
+        
+% --- 封面部分 ---
+\begin{titlepage}
+        \centering
+        \vspace*{0.5cm}
+        
+        % --- 插入武汉大学校徽 ---
+        % 请确保 whu_logo.png 文件与 main.tex 在同一目录下。
+        % 调节 width 参数可以改变校徽的大小。
+        \includegraphics[width=7cm]{武汉大学.png}\par
+        
+        \vspace{2cm}
+        {\huhei\fontsize{26pt}{39pt}\selectfont 本科毕业论文（设计）\par}
+        
+        \vspace{2cm}
+        % 使用楷体（需要系统支持 FZKaiti 或类似字体，CTeX 会自动处理）
+        {\kaishu\fontsize{24pt}{36pt}\selectfont 基于多模态大模型的糖尿病辅助诊断算法研究与数学分析\par}
+        
+        \vspace{2.5cm}
+        {\husong\fontsize{14pt}{21pt}\selectfont
+                \renewcommand{\arraystretch}{1.5} % 调节表格行高
+                \begin{tabular}{lc}
+                        姓\quad 名： &  \\
+                        学\quad 号： &  \\
+                        专\quad 业： &  \\
+                        学\quad 院： &  \\
+                        指导教师： & 
+                \end{tabular}\par}
+        
+        \vspace{1.5cm}
+        {\husong\fontsize{14pt}{21pt}\selectfont 二〇二六年四月\par}
+\end{titlepage}
+        
+% --- 第二页：声明页 ---
+\newpage
+\thispagestyle{empty} % 声明页通常不设页眉页脚
+
+\begin{spacing}{1.5} % 设置1.5倍行距
+        
+        % --- 原创性声明 ---
+        \vspace*{3pt}
+        \begin{center}
+                {\huhei\fontsize{18pt}{27pt}\selectfont 原创性声明 \par}
+        \end{center}
+        \vspace{20pt}
+        
+        {\husong\fontsize{12pt}{18pt}\selectfont
+                本人郑重声明：所呈交的论文（设计），是本人在指导教师的指导下，严格按照学校和学院有关规定完成的。除文中已经标明引用的内容外，本论文（设计）不包含任何其他个人或集体已发表及撰写的研究成果。对本论文（设计）做出贡献的个人和集体，均已在文中以明确方式标明。本人承诺在论文（设计）工作过程中没有伪造数据等行为。若在本论文（设计）中有侵犯任何方面知识产权的行为，由本人承担相应的法律责任。\par}
+        
+        \vspace{40pt}
+        \begin{flushright}
+                {\husong\fontsize{12pt}{18pt}\selectfont
+                        % 使用 tabular 环境强制上下行对齐
+                        \begin{tabular}{ll}
+                                作者签名：\hspace{2cm} & 指导教师签名：\hspace{2cm} \\[15pt]
+                                日\qquad 期：\hspace{1.5cm}&年\hspace{1cm}月\hspace{1cm}日 \\ 
+                        \end{tabular}
+                }
+        \end{flushright}
+        
+        \vspace{60pt} % 两个声明之间的间距
+        
+        % --- 版权使用授权书 ---
+        \begin{center}
+                {\huhei\fontsize{18pt}{27pt}\selectfont 版权使用授权书 \par}
+        \end{center}
+        \vspace{20pt}
+        
+        {\husong\fontsize{12pt}{18pt}\selectfont
+                本人完全了解武汉大学有权保留并向有关部门或机构送交本论文（设计）的复印件和电子版，允许本论文（设计）被查阅和借阅。本人授权武汉大学将本论文的全部或部分内容编入有关数据进行检索和传播，可以采用影印、缩印或扫描等复制手段保存和汇编本论文（设计）。\par}
+        
+        \vspace{40pt}
+\begin{flushright}
+        {\husong\fontsize{12pt}{18pt}\selectfont
+                % 使用 tabular 环境强制上下行对齐
+                \begin{tabular}{ll}
+                        作者签名：\hspace{2cm} & 指导教师签名：\hspace{2cm} \\[15pt]
+                        日\qquad 期：\hspace{1.5cm}&年\hspace{1cm}月\hspace{1cm}日 \\ 
+                \end{tabular}
+        }
+\end{flushright}
+        
+\end{spacing}
+\newpage
+        
+        % --- 摘要 [cite: 1, 2] ---
+        \frontmatter
+        \chapter*{摘  要}
+        \addcontentsline{toc}{chapter}{摘要}        \noindent \textbf{关键词}：        
+
+        
+        \chapter*{\bfseries ABSTRACT}
+        \addcontentsline{toc}{chapter}{ABSTRACT}
+                \vspace{1em}
+        
+        \zihao{-4}        \noindent \textbf{Key Words}: Multimodal Large Language Model; Auxiliary Diagnosis; Mathematical Analysis; Low-Rank Adaptation; Feature Mapping; Cross-modal Alignment
+        
+        
+        % --- 目录部分 ---
+        \cleardoublepage
+        \begin{spacing}{1.5} % 目录行间距 1.5 倍
+                \tableofcontents
+        \end{spacing}
+        \newpage
+        
+        % --- 正文 ---
+        \mainmatter
+        \chapter{绪论}
+        
+        \section{研究背景与意义}
+        
+        \chapter*{参考文献}
+        \addcontentsline{toc}{chapter}{参考文献}
+{
+        % 禁止换页
+        \let\clearpage\relax
+        \let\cleardoublepage\relax
+        
+        % 去掉标题
+        
+        \renewcommand{\bibname}{}
+        \begin{thebibliography}{99}
+        % 1 你论文核心：DeepDR-LLM（Nature Medicine）
+        \bibitem{1} Li J, Guan Z, Wang J, et al. Integrated image-based deep learning and language models for primary diabetes care[J]. Nature Medicine, 2024, 30(10): 2886-2896.
+        \chapter*{致  谢}
